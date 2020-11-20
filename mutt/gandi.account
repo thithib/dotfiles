@@ -1,0 +1,15 @@
+# Receiving
+set imap_user = <my-email-address>
+set imap_pass = $my_pw_gandi
+set folder = imaps://$imap_user@mail.gandi.net
+set spoolfile = +INBOX
+set postponed = +Drafts
+set record = +Sent
+set trash = +Trash
+
+# Sending
+set smtp_url = smtps://$imap_user@mail.gandi.net
+set smtp_pass = $my_pw_gandi
+set realname = "Thibaut Sautereau"
+set from = <my-email-address>
+set signature = "~/.mutt/default.signature"

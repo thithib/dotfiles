@@ -1,0 +1,135 @@
+# General configuration
+set mbox_type = Maildir
+set tmpdir = "$XDG_RUNTIME_DIR"
+set header_cache = "~/.cache/mutt/headers"
+set message_cachedir = "~/.cache/mutt/bodies"
+#set message_cache_clean # Only set every once in a while
+set sleep_time = 0
+set timeout = 30
+set pager_stop
+set quit = ask-yes
+unset beep
+
+# Display
+unset help
+set honor_disposition
+set mailcap_path = ~/.mutt/mailcap
+unset markers
+set reverse_alias
+set reverse_name
+set status_on_top
+set flag_safe
+## Threads and sorting
+set sort = "threads"
+set sort_aux = "last-date-received"
+set strict_threads
+set narrow_tree
+unset hide_missing
+set uncollapse_jump
+folder-hook . 'push <collapse-all>'
+bind index - collapse-thread
+bind index _ collapse-all
+## Sidebar
+# TODO
+## Formats
+set index_format = "%4C %Z %{%5b %d} %-20.20L (%?M?#%03M&%4c?) %s"
+set date_format = "!%a, %b %d, %Y at %H:%M %Z"
+set pager_format = "-%Z- %C/%m: %-20.20n   %s%*  -- (%P, %e/%E%?X?, A?)"
+## Colors
+color normal white default
+color status bold white default
+color prompt bold default default
+color index bold default default ~U
+color index bold default default ~v~(~U)
+color index red default ~D
+color index bold magenta default ~F
+color index magenta default ~v~(~F)
+color indicator underline color11 default
+set cursor_overlay
+#set header_color_partial
+
+# Receiving
+set imap_check_subscribed
+#set imap_keepalive = 180
+set imap_poll_timeout = 30
+unset imap_passive
+set mail_check = 60
+unset mail_check_recent
+bind index G imap-fetch-mail
+
+# Sending
+set autoedit
+set send_charset = "utf-8"
+set edit_headers
+set ignore_list_reply_to
+set fast_reply
+set reply_regexp = "^(re([\[0-9\]+])*|aw)[ \t]*:[ \t]*"
+set forward_edit = ask-yes
+set forward_format = "Fwd: %s"
+set mime_forward = ask-no
+set rfc2047_parameters
+set recall = ask-no
+set abort_unmodified = ask-yes
+set abort_noattach = ask-yes
+set abort_noattach_regexp = "(pièce jointe|attach)"
+unset use_domain
+
+# Security
+set certificate_file = "~/.mutt/certificates"
+set ssl_force_tls
+unset ssl_use_tlsv1_2
+unset crypt_autopgp
+unset crypt_autosign
+unset crypt_autosmime
+set crypt_protected_headers_write
+set crypt_replysignencrypted
+set crypt_use_gpgme
+set pgp_auto_decode
+set pgp_default_key = 0x69E7F43252C4F70A
+set pgp_timeout = 60
+unset pgp_show_unusable
+set postpone_encrypt
+
+# Account switching
+macro index <f2> '<sync-mailbox><change-folder>imaps://imap.gmail.com<enter>'
+macro index <f3> '<sync-mailbox><change-folder>imaps://<my-email-address>@mail.gandi.net<enter>'
+macro index <f4> '<sync-mailbox><change-folder>imaps://imap.minet.net/INBOX<enter>'
+
+# Address books handling
+bind editor <Tab> complete-query
+## Abook
+#set query_command = "abook --mutt-query '%s'"
+#macro index,pager a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
+## Khard
+set query_command = "khard email --parsable %s"
+#macro index,pager a "<pipe-message>khard add-email<return>" "Add this sender's email to contacts"
+
+# Misc. bindings
+macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
+## Shortcuts for saving attachments
+macro attach s "<save-entry><bol>/tmp/<eol>" "Save to /tmp"
+macro attach S "<save-entry><bol>~/<eol>" "Save to homedir"
+## More Vim-like bindings in pager
+bind pager j next-line
+bind pager k previous-line
+bind pager G bottom
+
+# If I ever need to be more warned or even interrupted when receiving new mail,
+# see the following configuration variables: new_mail_command, ts_enabled,
+# ts_icon_format, ts_status_format
+
+# Accounts settings
+## GPG-encrypted accounts passwords
+source "gpg --quiet --no-symkey-cache --decrypt ~/.mutt/.my-pwds.gpg |"
+## Gmail
+folder-hook gmail.com 'source ~/.mutt/gmail.account'
+account-hook gmail.com 'set imap_user=<my-email-address> imap_pass=$my_pw_gmail'
+## Gandi
+folder-hook <domain-name-part-of-my-email-address> 'source ~/.mutt/gandi.account'
+account-hook imaps://mail.gandi.net 'set imap_user=<my-email-address> imap_pass=$my_pw_gandi'
+## MiNET
+folder-hook minet.net 'source ~/.mutt/minet.account'
+account-hook minet.net 'set imap_user=<local-part-of-my-email-address> imap_pass=$my_pw_minet'
+
+# Switch to default account on startup
+source ~/.mutt/gmail.account

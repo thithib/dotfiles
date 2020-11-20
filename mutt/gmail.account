@@ -1,0 +1,13 @@
+# Receiving
+set folder = imaps://imap.gmail.com/[Gmail]
+set spoolfile = imaps://imap.gmail.com
+set record = ''
+set postponed = +Drafts
+set trash = +Trash
+
+# Sending
+set smtp_url = smtps://<local-part-of-my-email-address>@smtp.googlemail.com
+set smtp_pass = $my_pw_gmail
+set realname = "Thibaut Sautereau"
+set from = <my-email-address>
+set signature = "~/.mutt/default.signature"

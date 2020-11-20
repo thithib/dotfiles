@@ -1,0 +1,13 @@
+# Receiving
+set folder = imaps://imap.minet.net/INBOX
+set spoolfile = +
+set postponed = +Drafts
+set record = +Sent
+set trash = +Trash
+
+# Sending
+set smtp_url = smtps://<local-part-of-my-email-address>@smtp.minet.net
+set smtp_pass = $my_pw_minet
+set realname = "Thibaut Sautereau"
+set from = <my-email-address>
+set signature = "~/.mutt/minet.signature"
