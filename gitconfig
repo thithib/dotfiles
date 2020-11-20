@@ -1,0 +1,36 @@
+[core]
+	abbrev = 12
+[commit]
+	#gpgSign = true
+[credential]
+	helper = cache --timeout 900
+[credential "https://github.com"]
+	username = thithib
+[pull]
+	ff = only
+	rebase = interactive
+[push]
+	#followTags = true
+[rebase]
+	autosquash = true
+	missingCommitsCheck = warn
+#[rerere]
+#	autoupdate = true
+#	enabled = true
+[sendemail]
+	confirm = always
+	smtpuser = <my-email-address>
+	smtpserver = mail.gandi.net
+	smtpencryption = ssl
+	smtpserverport = 465
+#	suppresscc = self
+	chainReplyTo = false
+[stash]
+	showPatch = true
+[transfer]
+	fsckobjects = true
+[user]
+	name = Thibaut Sautereau
+	email = <my-email-address>
+#	useConfigOnly = true
+	signingkey = B1333EA69549A3EC6E0FA6D7C49A7675E73233AD
