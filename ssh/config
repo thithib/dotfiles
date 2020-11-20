@@ -1,0 +1,12 @@
+IdentitiesOnly yes
+
+# Correctly handle gpg-agent as a drop-in replacement for ssh-agent
+Match exec "gpg-connect-agent updatestartuptty /bye >/dev/null"
+  IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
+
+# [...]
+
+Host aur.archlinux.org
+  User aur
+  IdentityFile ~/.ssh/keys/aur
+  RequestTTY no
